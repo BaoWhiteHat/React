@@ -20,6 +20,7 @@ const issueReducer = (state = initialState, action) => {
                 error: null,
             };
         case actionTypes.FETCH_ISSUES_SUCCESS:
+            console.log('Fetched Issues:', action.issues);
             return {
                 ...state,
                 loading: false,

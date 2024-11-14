@@ -7,25 +7,41 @@ import { Select, SelectTrigger } from "@/components/ui/select";
 import { SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { fetchIssueById, updateIssueStatus } from "@/Redux/Issue/Action";
+// import { updateIssue } from "@/Redux/Issue/Action";
+// import {  } from "@/Redux/Issue/Action";
+
 
 const IssueDetails = () => {
   const { projectId, issueId } = useParams();
+  const dispatch = useDispatch();
+    const {issue} = useSelector((store) => store);
+
 
   const handleUpdateIssueStatus = (status) => {
+    dispatch(updateIssueStatus({ status, id: issueId }))
     console.log(status);
-   }
+  }
+  
+  useEffect(() => {
+    dispatch(fetchIssueById(issueId)); 
+   }, [issueId]);
+
   return (
     <div className="px-20 py-8 text-gray-400">
       <div className="flex justify-between border p-10 rounded-lg">
         <ScrollArea className="h-[80vh] w-[60%]">
           <div>
             <h1 className="text-lg font-semibold text-gray-400">
-              Create Navbar
+              {issue.issueDetails?.title}
             </h1>
             <div className="py-5">
               <h2 className="font-semibold text-gray-400">Description</h2>
               <p className="text-gray-400 text-sm mt-3">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.{" "}
+                {issue.issueDetails?.description}
               </p>
             </div>
             <div className="mt-5">
@@ -78,14 +94,17 @@ const IssueDetails = () => {
 
                 <div className="flex gap-10 items-center">
                   <p className="w-[7rem]">Assignee</p>
-                  <div className="flex items-center gap-3">
+                  {issue.issueDetails?.assignee?.fullName ?
+                   <div className="flex items-center gap-3">
                     <Avatar className="h-8 w-8 text-xs">
                       <AvatarFallback>
                         Z
                       </AvatarFallback>
                     </Avatar>
-                    <p>Le Quoc Bao</p>
-                  </div>
+                    <p>{issue.issueDetails?.assignee?.fullName}</p>
+                  </div>:<p>unassigned</p>
+                  }
+                 
                 </div>
                       
                  <div className="flex gap-10 items-center">
@@ -96,7 +115,7 @@ const IssueDetails = () => {
                 <div className="flex gap-10 items-center">
                   <p className="w-[7rem]">Status</p>
                   <Badge>
-                    in_progress
+                    {issue.issueDetails?.status}
                  </Badge>
                 </div>
 

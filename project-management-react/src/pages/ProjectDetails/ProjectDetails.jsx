@@ -21,14 +21,14 @@ import { useSelector } from "react-redux";
 
 const ProjectDetails = () => {
   const dispatch = useDispatch();
-  const { project } = useSelector(store => store);
+  const { project } = useSelector((store) => store);
   const { id } = useParams();
-  const handleProjectInvitation = () => { };
+  const handleProjectInvitation = () => {};
 
-useEffect(() => { 
-dispatch(fetchProjectById(id))
-}, [id])
-  
+  useEffect(() => {
+    dispatch(fetchProjectById(id));
+  }, [id]);
+
   return (
     <>
       <div className="mt-5 lg:px-10">
@@ -43,8 +43,7 @@ dispatch(fetchProjectById(id))
                   {project.projectDetails?.description}
                 </p>
                 <div className="flex">
-                  <p className="w-36">
-                    Project Lead :</p>
+                  <p className="w-36">Project Lead :</p>
                   <p>{project.projectDetails?.owner.fullName}</p>
                 </div>
 
@@ -53,7 +52,7 @@ dispatch(fetchProjectById(id))
                   <div className="flex items-center gap-2">
                     {project.projectDetails?.team.map((item) => (
                       <Avatar className="cursor-pointer" key={item}>
-                        <AvatarFallback>{ item.fullName[0] }</AvatarFallback>
+                        <AvatarFallback>{item.fullName[0]}</AvatarFallback>
                       </Avatar>
                     ))}
                   </div>
@@ -82,31 +81,28 @@ dispatch(fetchProjectById(id))
                 </div>
                 <div className="flex">
                   <p className="w-36">Category :</p>
-                  <p>{ project.projectDetails?.category}</p>
+                  <p>{project.projectDetails?.category}</p>
                 </div>
 
                 <div className="flex">
                   <p className="w-36">Project Lead :</p>
                   <Badge>{project.projectDetails?.owner.fullName}</Badge>
                 </div>
-                          </div>
-                          
-                          <section>
-                              <p className="py-5 border-b text-lg -tracking-wider">Tasks</p>
-                              <div className="lg:flex md:flex gap-3 justify-between py-5">
-                                  
-                                  <IssueList status="pending" title="Todo List" />
-                                  <IssueList status="in_progress" title="In progress" />
-                                  <IssueList status="done" title="Done" />
+              </div>
 
-                              </div>
-                          </section>
+              <section>
+                <p className="py-5 border-b text-lg -tracking-wider">Tasks</p>
+                <div className="lg:flex md:flex gap-3 justify-between py-5">
+                  <IssueList status="pending" title="Todo List" />
+                  <IssueList status="in_progress" title="In progress" />
+                  <IssueList status="done" title="Done" />
+                </div>
+              </section>
             </div>
-                  </ScrollArea>
-                  <div className="lg:w-[30%] rounded-md sticky right-5 top-10">
-                      <ChatBox/>
-                  </div>
-                 
+          </ScrollArea>
+          <div className="lg:w-[30%] rounded-md sticky right-5 top-10">
+            <ChatBox />
+          </div>
         </div>
       </div>
     </>
