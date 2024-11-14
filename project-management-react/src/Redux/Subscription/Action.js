@@ -2,7 +2,7 @@ import api from "@/config/api";
 import * as types from "./ActionTypes";
 
 // get User Subscription
-export const getUserSubscription = (jwt) =>
+export const getUserSubscription = () =>
 {
     return async (dispatch) =>
     {
@@ -10,9 +10,10 @@ export const getUserSubscription = (jwt) =>
         try
         {
             const response = await api.get('/api/subscriptions/user', {
-                headers: {
-                    'Authorization': `Bearer ${jwt}`
-                }
+                  headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("jwt")}`
+                },
+
             });
             dispatch({
                 type: types.GET_USER_SUBSCRIPTION_SUCCESS,
@@ -40,6 +41,10 @@ export const upgradeSubscription = ({planType}) =>
         try
         {
             const response = await api.patch('/api/subscriptions/upgrade', null, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("jwt")}`
+                },
+
                 params: {
                     planType: planType,
                 }
