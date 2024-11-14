@@ -1,6 +1,7 @@
 import api from '@/config/api';
 import * as actionTypes from "./ActionTypes";
 
+
 export const sendMessage = (messageData) => {
     return async (dispatch) => {
         dispatch({ type: actionTypes.SEND_MESSAGE_REQUEST });
@@ -13,6 +14,7 @@ export const sendMessage = (messageData) => {
                 type: actionTypes.SEND_MESSAGE_SUCCESS,
                 message: response.data,
             });
+            console.log("message sent", response.data);
         } catch (error) {
             console.log(error);
             dispatch({
