@@ -13,12 +13,13 @@ import { useSelector } from "react-redux";
 import { fetchIssueById, updateIssueStatus } from "@/Redux/Issue/Action";
 // import { updateIssue } from "@/Redux/Issue/Action";
 // import {  } from "@/Redux/Issue/Action";
+import { fetchComments } from "@/Redux/Comment/Action";
 
 
 const IssueDetails = () => {
   const { projectId, issueId } = useParams();
   const dispatch = useDispatch();
-    const {issue} = useSelector((store) => store);
+  const {issue, comment} = useSelector((store) => store);
 
 
   const handleUpdateIssueStatus = (status) => {
@@ -28,6 +29,7 @@ const IssueDetails = () => {
   
   useEffect(() => {
     dispatch(fetchIssueById(issueId)); 
+    dispatch(fetchComments(issueId));
    }, [issueId]);
 
   return (
@@ -61,8 +63,8 @@ const IssueDetails = () => {
                 <TabsContent value="comments">
                   <CreateCommentForm issueId={issueId} />
                   <div className="mt-8 space-y-6 ">
-                    {[1, 1, 1].map((item) => (
-                      <CommentCard key={item} />
+                    {comment.comments.map((item) => (
+                      <CommentCard item={item} key={item} />
                     ))}
                   </div>
                 </TabsContent>
@@ -98,7 +100,7 @@ const IssueDetails = () => {
                    <div className="flex items-center gap-3">
                     <Avatar className="h-8 w-8 text-xs">
                       <AvatarFallback>
-                        Z
+                        {issue.issueDetails?.assignee?.fullName[0]}
                       </AvatarFallback>
                     </Avatar>
                     <p>{issue.issueDetails?.assignee?.fullName}</p>
