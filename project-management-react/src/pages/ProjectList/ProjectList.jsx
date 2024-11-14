@@ -12,6 +12,7 @@ import { useState } from "react";
 
 import React from "react";
 import ProjectCard from "../Project/ProjectCard";
+import { useSelector } from "react-redux";
 
 export const tags = [
   "all",
@@ -25,16 +26,46 @@ export const tags = [
   "flash",
   "django",
 ];
+import { useDispatch } from "react-redux";
+import { searchProjects } from "@/Redux/Project/Action";
+import { fetchProjects } from "@/Redux/Project/Action";
+
 
 const ProjectList = () => {
   const [keyword, setKeyword] = useState("");
-  const handleFilterChange = (section, value) => {
-    console.log("value", value, section);
+  const { project } = useSelector((store) => store);
+  const dispatch = useDispatch();
+
+  const handleFilterCategory = (value) => {
+    if (value === "all")
+      // return dispatch(fetchProjects({}));
+    {
+      dispatch(fetchProjects({}));
+    }
+    else
+    dispatch(fetchProjects({ category:value}));
+    // console.log("value", value, section);
+  };
+
+  const handleFilterTags = (value) => {
+       if (value === "all")
+      // return dispatch(fetchProjects({}));
+    {
+      dispatch(fetchProjects({}));
+    }
+    else
+    dispatch(fetchProjects({ tag:value}));
+    // console.log("value", value, section);
   };
 
   const handleSearchChange = (e) => {
     setKeyword(e.target.value);
+    dispatch(searchProjects(e.target.value));
   };
+
+
+
+  console.log("project store", project);
 
   return (
     <>
@@ -58,7 +89,7 @@ const ProjectList = () => {
                       className="space-y-3 pt-5"
                       defaultValue="all"
                       onValueChange={(value) =>
-                        handleFilterChange("category", value)
+                        handleFilterCategory(value)
                       }
                     >
                       <div className="flex items-center gap-2">
@@ -92,7 +123,7 @@ const ProjectList = () => {
                       className="space-y-3 pt-5"
                       defaultValue="all"
                       onValueChange={(value) =>
-                        handleFilterChange("tag", value)
+                        handleFilterTags(value)
                       }
                     >
                       {tags.map((item) => (
@@ -123,9 +154,10 @@ const ProjectList = () => {
           <div>
             <div className="space-y-5 min-h-[74vh]">
               {keyword
-                ? [1, 1, 1].map((item) => <ProjectCard key={item}/>)
-                : [1, 1, 1, 1, 1].map((item) => (
-                    <ProjectCard key={item}/>
+                ? project.searchProjects?.map((item, index) => <ProjectCard
+                  item={item} key={item.id * index} />)
+                : project.projects?.map((item) => (
+                  <ProjectCard key={item.id} item={item} />
                   ))}
             </div>
           </div>

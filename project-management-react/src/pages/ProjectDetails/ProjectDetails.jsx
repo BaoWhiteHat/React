@@ -13,9 +13,22 @@ import { Button } from "@/components/ui/button";
 import InviteUserForm from "./InviteUserForm";
 import IssueList from "./IssueList";
 import ChatBox from "./ChatBox";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchProjectById } from "@/Redux/Project/Action";
+import { useSelector } from "react-redux";
 
 const ProjectDetails = () => {
-  const handleProjectInvitation = () => {};
+  const dispatch = useDispatch();
+  const { project } = useSelector(store => store);
+  const { id } = useParams();
+  const handleProjectInvitation = () => { };
+
+useEffect(() => { 
+dispatch(fetchProjectById(id))
+}, [id])
+  
   return (
     <>
       <div className="mt-5 lg:px-10">
@@ -23,23 +36,24 @@ const ProjectDetails = () => {
           <ScrollArea className="h-screen lg:w-[69%] pr-2">
             <div className="text-gray-400 pb-10 w-full">
               <h1 className="text-lg font-semibold pb-5">
-                Create Ecommerce Website Using React
+                {project.projectDetails?.name}
               </h1>
               <div className="space-y-5 pb-10 text-sm">
                 <p className="w-full md:max-w-lg lg:max-w-xl ">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  {project.projectDetails?.description}
                 </p>
                 <div className="flex">
-                  <p className="w-36">Project Lead :</p>
-                  <p>Bao</p>
+                  <p className="w-36">
+                    Project Lead :</p>
+                  <p>{project.projectDetails?.owner.fullName}</p>
                 </div>
 
                 <div className="flex">
                   <p className="w-36">Members :</p>
                   <div className="flex items-center gap-2">
-                    {[1, 1, 1, 1].map((item) => (
+                    {project.projectDetails?.team.map((item) => (
                       <Avatar className="cursor-pointer" key={item}>
-                        <AvatarFallback>Z</AvatarFallback>
+                        <AvatarFallback>{ item.fullName[0] }</AvatarFallback>
                       </Avatar>
                     ))}
                   </div>
@@ -68,12 +82,12 @@ const ProjectDetails = () => {
                 </div>
                 <div className="flex">
                   <p className="w-36">Category :</p>
-                  <p>Fullstack</p>
+                  <p>{ project.projectDetails?.category}</p>
                 </div>
 
                 <div className="flex">
                   <p className="w-36">Project Lead :</p>
-                  <Badge>Bao</Badge>
+                  <Badge>{project.projectDetails?.owner.fullName}</Badge>
                 </div>
                           </div>
                           

@@ -1,5 +1,5 @@
-import { GET_USER_REQUEST, GET_USER_SUCCESS, LOGIN_REQUEST, LOGIN_SUCCESS, REGISTER_REQUEST, REGISTER_SUCCESS } from "./ActionTypes";
-import { REGISTER_REQUEST, REGISTER_SUCCESS, LOGOUT } from "./ActionTypes";
+import { GET_USER_REQUEST, GET_USER_SUCCESS, LOGIN_REQUEST, LOGIN_SUCCESS, REGISTER_REQUEST, REGISTER_SUCCESS, LOGOUT } from "./ActionTypes";
+// import { REGISTER_REQUEST, REGISTER_SUCCESS,  } from "./ActionTypes";
 
 const initialState = {
     user: null,
@@ -22,12 +22,12 @@ export const authReducer = (state = initialState, action) => {
             return {...state, laoding:false, error: null, jwt: action.payload.jwt}
     
         case GET_USER_SUCCESS:
-            return { ...state, loading: false, error: null, user: action.payload.user }
+            return { ...state, loading: false, error: null, user: action.payload}
     
         case LOGOUT:
             return initialState;
 
         default:
-            state;
+            return state;
     }
 }

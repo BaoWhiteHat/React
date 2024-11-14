@@ -17,7 +17,7 @@ export const fetchProjects =
         };
   
 export const searchProjects =
-  ({ keyword }) =>
+  ( keyword ) =>
       async (dispatch) => {
       dispatch({type:SEARCH_PROJECT_REQUEST})
     try {
@@ -29,12 +29,12 @@ export const searchProjects =
     }
   };
 
-export const createProject =
-  ({ id }) =>
+export const fetchProjectById =
+  ( id ) =>
       async (dispatch) => {
       dispatch({type:FETCH_PROJECT_BY_ID_REQUEST})
     try {
-        const { data } = await api.post("/api/projects"+id);
+        const { data } = await api.get("/api/projects/"+id);
         console.log("project", data)
         dispatch({type:FETCH_PROJECT_BY_ID_SUCCESS, project:data})
     } catch (error) {
@@ -42,13 +42,13 @@ export const createProject =
     }
         };
   
-export const fetchProjectById =
+export const createProject =
   (projectData) =>
       async (dispatch) => {
       dispatch({type:CREATE_PROJECT_REQUEST})
     try {
-        const { data } = await api.get("/api/projects", projectData);
-        console.log("projects", data)
+        const { data } = await api.post("/api/projects ", projectData);
+        console.log("create projects ------ ", data)
         dispatch({type:CREATE_PROJECT_SUCCESS, project:data})
     } catch (error) {
         console.log("error",error)
@@ -59,7 +59,7 @@ export const deleteProject = ({projectId}) =>
       async (dispatch) => {
       dispatch({type:DELETE_PROJECT_REQUEST})
     try {
-        const { data } = await api.delete("/api/projects"+projectId);
+        const { data } = await api.delete("/api/projects/"+projectId);
         console.log("delete projects", data)
         dispatch({type:DELETE_PROJECT_SUCCESS, projectId})
     } catch (error) {
