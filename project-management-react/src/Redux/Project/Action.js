@@ -1,6 +1,7 @@
 import api from "@/config/api";
 import { ACCEPT_INVITATION_REQUEST, ACCEPT_INVITATION_SUCCESS, CREATE_PROJECT_REQUEST, CREATE_PROJECT_SUCCESS, DELETE_PROJECT_REQUEST, DELETE_PROJECT_SUCCESS, FETCH_PROJECT_BY_ID_REQUEST, FETCH_PROJECT_BY_ID_SUCCESS, FETCH_PROJECTS_REQUEST, FETCH_PROJECTS_SUCCESS, INVITE_TO_PROJECT_REQUEST, INVITE_TO_PROJECT_SUCCESS, SEARCH_PROJECT_REQUEST, SEARCH_PROJECT_SUCCESS } from "./ActionTypes";
 
+
 export const fetchProjects =
   ({ category, tag }) =>
       async (dispatch) => {
@@ -79,16 +80,16 @@ export const inviteToProject = ({email, projectId}) =>
     }
     };
   
-export const acceptInvitation = ({invitationToken, navigate}) =>
+export const acceptInvitation = ({token, navigate}) =>
       async (dispatch) => {
       dispatch({type: ACCEPT_INVITATION_REQUEST})
     try {
         const { data } = await api.get("/api/projects/accept_invitation", {
             params: {
-                token: invitationToken
+                token
             }
         });
-        navigate("/project"+data.projectId)
+        navigate("/project/"+data.projectId)
 
         console.log("accept invitation", data)
         dispatch({type:ACCEPT_INVITATION_SUCCESS, payload:data})
