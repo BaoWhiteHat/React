@@ -11,7 +11,7 @@ import { DotFilledIcon, DotsVerticalIcon } from "@radix-ui/react-icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteProject, fetchProjectById } from "@/Redux/Project/Action";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 const ProjectCard = ({item}) => {
 
