@@ -17,6 +17,7 @@ import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "@/Redux/Auth/Action";
+import './Navbar.css'
 
 const Navbar = () => {
   const { auth } = useSelector((store) => store);
@@ -27,15 +28,15 @@ const Navbar = () => {
     dispatch(logout());
   }
   return (
-    <div className="border-b py-4 px-5 flex items-center justify-between">
-      <div className="flex items-center gap-3">
-        <p onClick={() => navigate("/")} className="cursor-pointer">
-          Project Managementt
+    <div className="navbarbody">
+      <div className="navbar">
+        <p onClick={() => navigate("/")} className="project">
+          Project Management
         </p>
 
         <Dialog>
           <DialogTrigger>
-            <Button variant="ghost">New Project</Button>
+            <Button className="newProject" variant="ghost">New Project</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>Create New Project</DialogHeader>
@@ -43,7 +44,7 @@ const Navbar = () => {
             <CreateProjectForm />
           </DialogContent>
         </Dialog>
-        <Button onClick={() => navigate("/upgrade_plan")} variant="ghost">
+        <Button className="Upgrade" onClick={() => navigate("/upgrade_plan")} variant="ghost">
           Upgrade
         </Button>
       </div>
