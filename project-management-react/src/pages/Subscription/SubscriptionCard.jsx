@@ -41,4 +41,5 @@ const SubscriptionCard = ({ data }) => {
     );
 };
 
+
 export default SubscriptionCard;
