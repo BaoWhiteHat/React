@@ -73,7 +73,7 @@ button:focus-visible {
 @tailwind utilities;
 
 
-/* @layer base {
+@layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -136,9 +136,9 @@ button:focus-visible {
   }
   body {
     @apply bg-background dark text-foreground;
-  } */
+  }
 
-    @layer base {
+    /* @layer base {
       :root {
         --background: 0 0% 100%;
         --foreground: 222.2 84% 4.9%;
@@ -192,6 +192,6 @@ button:focus-visible {
         --chart-3: 30 80% 55%;
         --chart-4: 280 65% 60%;
         --chart-5: 340 75% 55%;
-      }
+      } */
     
 }
